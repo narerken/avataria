@@ -111,12 +111,12 @@
         <div class="auth-buttons">
             {% if not session.get('user_id') %}
                 <div class="d-grid gap-3 d-sm-flex justify-content-center">
-                    <a href="{{ url_for('register') }}" >
+                    <a href="{{ url_for('auth.register') }}" >
                         <img src="{{ url_for('static', filename='elements/start.svg') }}" alt="Start" height="140">
                     </a>
                 </div>
             {% else %}
-                <a href="{{ url_for('dashboard') }}" >
+                <a href="{{ url_for('auth.dashboard') }}" >
                     <img src="{{ url_for('static', filename='elements/continue.svg') }}" alt="Continue" height="100">
                 </a>
             {% endif %}
