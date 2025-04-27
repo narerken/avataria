@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% block body_style %}
+    background-image: url("{{ url_for('static', filename='images/back2.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+{% endblock %}
+
+{% block content %}
+<style>
+    .form-label {
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 0.5rem;
+    }
+    .form-control, .form-select {
+        border-radius: 10px;
+        padding: 12px 15px;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+
+    .image-button:hover {
+        transform: translateY(-3px);
+    }
+    .image-button:active {
+        transform: translateY(1px);
+    }
+    textarea.form-control {
+        min-height: 120px;
+        resize: vertical;
+    }
+    @media (max-width: 768px) {
+        .character-form {
+            padding: 1.5rem;
+        }
+    }
+</style>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 bg-dark bg-opacity-75 rounded-5 p-4">
+            <div class="text-center">
+                <img src="{{ url_for('static', filename='elements/edit-char.svg') }}"
+                     alt="New Character"
+                     class="header-image"
+                     height="70">
+            </div>
+
+            <form method="POST" enctype="multipart/form-data">
+                {{ form.hidden_tag() }}
+
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="form-floating">
+                            {{ form.name(class="form-control", id="nameInput", placeholder=" ") }}
+                            {{ form.name.label(class="form-label", for="nameInput") }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <div class="form-floating">
+                            {{ form.age(class="form-control", id="ageInput", placeholder=" ") }}
+                            {{ form.age.label(class="form-label", for="ageInput") }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="form-floating">
+                        {{ form.appearance(class="form-control", id="appearanceInput", placeholder=" ", style="height: 100px") }}
+                        {{ form.appearance.label(class="form-label", for="appearanceInput") }}
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="form-floating">
+                        {{ form.personality(class="form-control", id="personalityInput", placeholder=" ", style="height: 100px") }}
+                        {{ form.personality.label(class="form-label", for="personalityInput") }}
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="form-floating">
+                        {{ form.backstory(class="form-control", id="backstoryInput", placeholder=" ", style="height: 120px") }}
+                        {{ form.backstory.label(class="form-label", for="backstoryInput") }}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="form-floating">
+                            {{ form.universe(class="form-select", id="universeInput") }}
+                            {{ form.universe.label(class="form-label", for="universeInput") }}
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 mb-4">
+                        <div class="form-group">
+                            {{ form.image.label(class="form-label text-white") }}
+                            {{ form.image(class="form-control", accept="image/*") }}
+                            <small class="form-text">Upload character image (JPEG, PNG)</small>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="image-button p-0 border-0 bg-transparent">
+                        <img src="{{ url_for('static', filename='elements/edit.svg') }}"
+                             alt="Create Character"
+                             height="120">
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

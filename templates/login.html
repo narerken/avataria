@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block body_style %}
+    background-image: url("{{ url_for('static', filename='images/back.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+{% endblock %}
+{% block content %}
+<style>
+    .image-button img {
+        transition: transform 0.2s ease, filter 0.2s ease;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+    }
+
+    .image-button:hover img {
+        transform: scale(1.1);
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    }
+
+    .image-button:active img {
+        transform: scale(0.95);
+        filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+    }
+</style>
+
+<div class="row justify-content-center mt-5">
+    <div class="col-md-5 bg-dark bg-opacity-75 rounded-5 p-4">
+        <div class="text-center">
+            <img src="{{ url_for('static', filename='elements/login-text.svg') }}" alt="text" height="60">
+        </div>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ form.username.label(class="form-label text-white") }}
+                {{ form.username(class="form-control") }}
+            </div>
+            <div class="mb-3">
+                {{ form.password.label(class="form-label text-white") }}
+                {{ form.password(class="form-control") }}
+            </div>
+            <div class="text-center">
+               <button type="submit" class="image-button p-0 border-0 bg-transparent">
+                   <img src="{{ url_for('static', filename='elements/login.svg') }}" alt="Register" height="50">
+               </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

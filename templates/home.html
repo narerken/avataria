@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% block body_style %}
+    background-image: url("{{ url_for('static', filename='images/back.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+{% endblock %}
+
+{% block content %}
+<style>
+    .hero-section {
+        min-height: 100vh;
+        padding: 4rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .hero-content {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .hero-main-title {
+        width: 80vw;
+        max-width: 1200px;
+        max-height: 400px;
+        height: auto;
+        object-fit: contain;
+        margin-bottom: 3rem;
+    }
+
+    .hero-subtitle {
+        width: 60vw;
+        max-width: 900px;
+        max-height: 300px;
+        height: auto;
+        object-fit: contain;
+        margin-bottom: 4rem;
+    }
+
+    .auth-buttons {
+        margin-top: 3rem;
+    }
+
+    .auth-buttons img {
+        transition: transform 0.2s ease, filter 0.2s ease;
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    .auth-buttons:hover img {
+        transform: scale(1.1);
+        filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    }
+
+    .auth-buttons:active img {
+        transform: scale(0.95);
+        filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
+    }
+
+    @media (max-width: 992px) {
+        .hero-main-title {
+            max-height: 300px;
+            width: 90vw;
+            margin-bottom: 2rem;
+        }
+
+        .hero-subtitle {
+            max-height: 200px;
+            width: 80vw;
+            margin-bottom: 3rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 6rem 1.5rem;
+        }
+
+        .hero-main-title {
+            max-height: 200px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-subtitle {
+            max-height: 150px;
+            margin-bottom: 2.5rem;
+        }
+
+        .auth-buttons {
+            margin-top: 2rem;
+        }
+    }
+</style>
+
+<div class="hero-section">
+    <div class="hero-content">
+        <!-- Главный заголовок -->
+        <img src="{{ url_for('static', filename='elements/title.svg') }}"
+             alt="The Bean Forge"
+             class="hero-main-title">
+
+        <!-- Подзаголовок -->
+        <img src="{{ url_for('static', filename='elements/description.svg') }}"
+             alt="Where Legends Are Born"
+             class="hero-subtitle">
+
+        <!-- Кнопки авторизации -->
+        <div class="auth-buttons">
+            {% if not session.get('user_id') %}
+                <div class="d-grid gap-3 d-sm-flex justify-content-center">
+                    <a href="{{ url_for('register') }}" >
+                        <img src="{{ url_for('static', filename='elements/start.svg') }}" alt="Start" height="140">
+                    </a>
+                </div>
+            {% else %}
+                <a href="{{ url_for('dashboard') }}" >
+                    <img src="{{ url_for('static', filename='elements/continue.svg') }}" alt="Continue" height="100">
+                </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

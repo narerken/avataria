@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% block body_style %}
+    background-image: url("{{ url_for('static', filename='images/back2.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+{% endblock %}
+{% block content %}
+<style>
+    .character-card {
+        transition: all 0.3s ease;
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    }
+    .character-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
+    }
+    .card-img-container {
+        padding: 15px 15px 0 15px; /* Отступы: сверху 15px, по бокам 15px, снизу 0 */
+        height: 250px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .card-img-top {
+        max-height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        border-radius: 10px;
+    }
+    .card-body {
+        padding: 20px;
+    }
+    .card-title {
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 15px;
+    }
+    .character-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+    .info-badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+    }
+    .age-badge {
+        background-color: #e3f2fd;
+        color: #1976d2;
+    }
+    .universe-badge {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+    }
+    .btn-action {
+        border-radius: 50px;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        margin-right: 8px;
+        transition: all 0.2s ease;
+    }
+    /* Остальные стили без изменений */
+    .btn-create {
+        padding: 10px 25px;
+        border-radius: 50px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        transition: all 0.3s ease;
+    }
+    .btn-create:hover {
+        transform: translateY(-3px);
+    }
+    .empty-state {
+        padding: 50px;
+        text-align: center;
+        color: #6c757d;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+        <img src="{{ url_for('static', filename='elements/my-char.svg') }}" alt="text" height="70">
+        <a href="{{ url_for('create_character') }}" class="btn-create">
+            <img src="{{ url_for('static', filename='elements/create.svg') }}" alt="text" height="80">
+        </a>
+    </div>
+
+    <div class="row">
+        {% for character in characters %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card character-card h-100 bg-dark bg-opacity-50">
+                    <div class="card-img-container">
+                        {% if character.image_filename %}
+                            <img src="{{ url_for('static', filename='uploads/' ~ character.image_filename) }}"
+                                 class="card-img-top"
+                                 alt="{{ character.name }}">
+                        {% else %}
+                            <i class="fas fa-user-circle fa-5x text-secondary"></i>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ character.name }}</h5>
+                        <div class="character-info">
+                            <span class="info-badge age-badge">
+                                 {{ character.age }} years
+                            </span>
+                            <span class="info-badge universe-badge">
+                                 {{ character.universe.name }}
+                            </span>
+                        </div>
+                        <div class="d-flex">
+                            <a href="{{ url_for('edit_character', char_id=character.id) }}"
+                               class="btn btn-primary btn-action">
+                                 Edit
+                            </a>
+                            <form action="{{ url_for('delete_character', char_id=character.id) }}" method="POST">
+                                <button type="submit" class="btn btn-danger btn-action">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="col-12">
+                <div class="empty-state">
+                    <i class="fas fa-user-slash"></i>
+                    <img src="{{ url_for('static', filename='elements/no-char.svg') }}" alt="text" height="40">
+                    <p class="lead text-white">Create your first character to get started!</p>
+                    <a href="{{ url_for('create_character') }}" class="btn btn-create">
+                        <img src="{{ url_for('static', filename='elements/create-2.svg') }}" alt="text" height="80">
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
