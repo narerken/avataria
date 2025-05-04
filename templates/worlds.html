@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block body_style %}
+    background-image: url("{{ url_for('static', filename='images/back.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+{% endblock %}
+
+{% block content %}
+<style>
+    /* Card hover animation */
+    .card-hover-effect {
+        transition: all 0.3s ease;
+    }
+
+    .card-hover-effect:hover {
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    /* Styling for good-aligned worlds */
+    .good-card {
+        border: 1px solid rgba(0, 255, 0, 0.1);
+    }
+
+    .good-card:hover {
+        border: 1px solid rgba(0, 255, 0, 0.5);
+    }
+
+    /* Styling for evil-aligned worlds */
+    .evil-card {
+        border: 1px solid rgba(255, 0, 0, 0.1);
+    }
+
+    .evil-card:hover {
+        border: 1px solid rgba(255, 0, 0, 0.5);
+    }
+</style>
+
+<div class="container py-4">
+
+    <!-- Section: Good universes -->
+    <img src="{{ url_for('static', filename='elements/good-worlds.svg') }}" alt="Good Worlds" height="80">
+    <div class="row">
+        {% for universe in universes if universe.alignment == 'good' %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 bg-dark text-white shadow-sm bg-opacity-25 p-3 card-hover-effect good-card">
+                {% if universe.image_filename %}
+                    <img src="{{ url_for('static', filename='universes/' + universe.image_filename) }}"
+                         class="card-img-top p-2" alt="{{ universe.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ universe.name }}</h5>
+                    <p class="card-text">{{ universe.characters|length }} character(s)</p>
+                    <a href="{{ url_for('worlds.view_world', universe_id=universe.id) }}"
+                       class="btn btn-outline-light">View</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Section: Evil universes -->
+    <img src="{{ url_for('static', filename='elements/evil-worlds.svg') }}" alt="Evil Worlds" height="80">
+    <div class="row">
+        {% for universe in universes if universe.alignment == 'evil' %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 bg-dark text-white shadow-sm bg-opacity-25 p-3 card-hover-effect evil-card">
+                {% if universe.image_filename %}
+                    <img src="{{ url_for('static', filename='universes/' + universe.image_filename) }}"
+                         class="card-img-top p-2" alt="{{ universe.name }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ universe.name }}</h5>
+                    <p class="card-text">{{ universe.characters|length }} character(s)</p>
+                    <a href="{{ url_for('worlds.view_world', universe_id=universe.id) }}"
+                       class="btn btn-outline-light">View</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

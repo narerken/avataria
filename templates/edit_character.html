@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+
+{# Background styling for edit page #}
 {% block body_style %}
     background-image: url("{{ url_for('static', filename='images/back2.png') }}");
     background-size: cover;
@@ -8,11 +10,13 @@
 
 {% block content %}
 <style>
+    /* Form field styles */
     .form-label {
         font-weight: 600;
         color: #495057;
         margin-bottom: 0.5rem;
     }
+
     .form-control, .form-select {
         border-radius: 10px;
         padding: 12px 15px;
@@ -20,16 +24,19 @@
         transition: all 0.3s ease;
     }
 
+    textarea.form-control {
+        min-height: 120px;
+        resize: vertical;
+    }
+
+    /* Button hover/press animation */
     .image-button:hover {
         transform: translateY(-3px);
     }
     .image-button:active {
         transform: translateY(1px);
     }
-    textarea.form-control {
-        min-height: 120px;
-        resize: vertical;
-    }
+
     @media (max-width: 768px) {
         .character-form {
             padding: 1.5rem;
@@ -42,14 +49,16 @@
         <div class="col-lg-8 bg-dark bg-opacity-75 rounded-5 p-4">
             <div class="text-center">
                 <img src="{{ url_for('static', filename='elements/edit-char.svg') }}"
-                     alt="New Character"
+                     alt="Edit Character"
                      class="header-image"
                      height="70">
             </div>
 
+            <!-- Edit Character Form -->
             <form method="POST" enctype="multipart/form-data">
                 {{ form.hidden_tag() }}
 
+                <!-- Name and Age fields -->
                 <div class="row">
                     <div class="col-md-6 mb-4">
                         <div class="form-floating">
@@ -57,7 +66,6 @@
                             {{ form.name.label(class="form-label", for="nameInput") }}
                         </div>
                     </div>
-
                     <div class="col-md-6 mb-4">
                         <div class="form-floating">
                             {{ form.age(class="form-control", id="ageInput", placeholder=" ") }}
@@ -66,6 +74,7 @@
                     </div>
                 </div>
 
+                <!-- Appearance -->
                 <div class="mb-4">
                     <div class="form-floating">
                         {{ form.appearance(class="form-control", id="appearanceInput", placeholder=" ", style="height: 100px") }}
@@ -73,6 +82,7 @@
                     </div>
                 </div>
 
+                <!-- Personality -->
                 <div class="mb-4">
                     <div class="form-floating">
                         {{ form.personality(class="form-control", id="personalityInput", placeholder=" ", style="height: 100px") }}
@@ -80,6 +90,7 @@
                     </div>
                 </div>
 
+                <!-- Backstory -->
                 <div class="mb-4">
                     <div class="form-floating">
                         {{ form.backstory(class="form-control", id="backstoryInput", placeholder=" ", style="height: 120px") }}
@@ -87,6 +98,7 @@
                     </div>
                 </div>
 
+                <!-- Universe and Image -->
                 <div class="row">
                     <div class="col-md-6 mb-4">
                         <div class="form-floating">
@@ -94,7 +106,6 @@
                             {{ form.universe.label(class="form-label", for="universeInput") }}
                         </div>
                     </div>
-
                     <div class="col-md-6 mb-4">
                         <div class="form-group">
                             {{ form.image.label(class="form-label text-white") }}
@@ -104,10 +115,11 @@
                     </div>
                 </div>
 
+                <!-- Submit button with image -->
                 <div class="text-center mt-4">
                     <button type="submit" class="image-button p-0 border-0 bg-transparent">
                         <img src="{{ url_for('static', filename='elements/edit.svg') }}"
-                             alt="Create Character"
+                             alt="Save Character"
                              height="120">
                     </button>
                 </div>

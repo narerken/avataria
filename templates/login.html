@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
+
+{# Page background #}
 {% block body_style %}
-    background-image: url("{{ url_for('static', filename='images/back.png') }}");
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+background-image: url("{{ url_for('static', filename='images/back.png') }}");
+background-size: cover;
+background-position: center;
+background-attachment: fixed;
 {% endblock %}
+
 {% block content %}
 <style>
+    /* Submit button hover/press animation */
     .image-button img {
         transition: transform 0.2s ease, filter 0.2s ease;
         filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
@@ -23,25 +27,47 @@
     }
 </style>
 
+<!-- Centered login form -->
 <div class="row justify-content-center mt-5">
     <div class="col-md-5 bg-dark bg-opacity-75 rounded-5 p-4">
+
+        <!-- Flash messages for login errors -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show mt-3" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
         <div class="text-center">
             <img src="{{ url_for('static', filename='elements/login-text.svg') }}" alt="text" height="60">
         </div>
+
+        <!-- Login form -->
         <form method="POST">
             {{ form.hidden_tag() }}
+
+            <!-- Username input -->
             <div class="mb-3">
                 {{ form.username.label(class="form-label text-white") }}
                 {{ form.username(class="form-control") }}
             </div>
+
+            <!-- Password input -->
             <div class="mb-3">
                 {{ form.password.label(class="form-label text-white") }}
                 {{ form.password(class="form-control") }}
             </div>
+
+            <!-- Submit button with image -->
             <div class="text-center">
-               <button type="submit" class="image-button p-0 border-0 bg-transparent">
-                   <img src="{{ url_for('static', filename='elements/login.svg') }}" alt="Register" height="50">
-               </button>
+                <button type="submit" class="image-button p-0 border-0 bg-transparent">
+                    <img src="{{ url_for('static', filename='elements/login.svg') }}" alt="Login" height="50">
+                </button>
             </div>
         </form>
     </div>

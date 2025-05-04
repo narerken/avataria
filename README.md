@@ -43,6 +43,9 @@ Users can register, log in, create, edit, and delete characters, as well as uplo
 ### Dashboard
 ![Dashboard](screenshots/dashboard.png)
 
+### Worlds
+![Dashboard](screenshots/worlds.png)
+
 ### Character Creation
 ![Create Character](screenshots/create_character.png)
 

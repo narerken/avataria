@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
-{# Custom background image #}
+{# Page background #}
 {% block body_style %}
-    background-image: url("{{ url_for('static', filename='images/back2.png') }}");
+    background-image: url("{{ url_for('static', filename='images/back.png') }}");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -10,7 +10,11 @@
 
 {% block content %}
 <style>
-    /* Card styling for character previews */
+    .alert-warning {
+        background-color: #FADCD5;
+    }
+
+    /* Character card styling */
     .character-card {
         transition: all 0.3s ease;
         border: none;
@@ -18,6 +22,7 @@
         overflow: hidden;
         box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
     }
+
     .character-card:hover {
         transform: translateY(-10px);
         box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
@@ -30,6 +35,7 @@
         align-items: center;
         justify-content: center;
     }
+
     .card-img-top {
         max-height: 100%;
         max-width: 100%;
@@ -71,45 +77,17 @@
         background-color: #e8f5e9;
         color: #2e7d32;
     }
-
-    .btn-action {
-        border-radius: 50px;
-        padding: 8px 16px;
-        font-size: 0.85rem;
-        margin-right: 8px;
-        transition: all 0.2s ease;
-    }
-
-    .btn-create {
-        padding: 10px 25px;
-        border-radius: 50px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-        transition: all 0.3s ease;
-    }
-
-    .btn-create:hover {
-        transform: translateY(-3px);
-    }
-
-    .empty-state {
-        padding: 50px;
-        text-align: center;
-        color: #6c757d;
-    }
 </style>
 
-<div class="container py-5">
-    <div class="d-flex justify-content-between align-items-center mb-5">
-        <img src="{{ url_for('static', filename='elements/my-char.svg') }}" alt="text" height="70">
-        <a href="{{ url_for('characters.create_character') }}" class="btn-create">
-            <img src="{{ url_for('static', filename='elements/create.svg') }}" alt="text" height="80">
-        </a>
-    </div>
+<div class="container py-4">
+    <!-- Universe name and description -->
+    <h2 class="text-white mb-4">{{ universe.name }}</h2>
+    <p class="text-white mb-4">{{ universe.description }}</p>
 
-    <div class="row">
-        {% for character in characters %}
-            <!-- Character card -->
+    {% if universe.characters %}
+        <!-- Characters in this universe -->
+        <div class="row">
+            {% for character in universe.characters %}
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card character-card h-100 bg-dark bg-opacity-50">
                     <div class="card-img-container">
@@ -131,35 +109,17 @@
                                 {{ character.universe.name }}
                             </span>
                         </div>
-                        <div class="d-flex">
-                            <!-- Edit button -->
-                            <a href="{{ url_for('characters.edit_character', char_id=character.id) }}"
-                               class="btn btn-primary btn-action">
-                                Edit
-                            </a>
-                            <!-- Delete form -->
-                            <form action="{{ url_for('characters.delete_character', char_id=character.id) }}" method="POST">
-                                <button type="submit" class="btn btn-danger btn-action">
-                                    Delete
-                                </button>
-                            </form>
-                        </div>
                     </div>
                 </div>
             </div>
-        {% else %}
-            <!-- No characters message -->
-            <div class="col-12">
-                <div class="empty-state">
-                    <i class="fas fa-user-slash"></i>
-                    <img src="{{ url_for('static', filename='elements/no-char.svg') }}" alt="text" height="40">
-                    <p class="lead text-white">Create your first character to get started!</p>
-                    <a href="{{ url_for('characters.create_character') }}" class="btn btn-create">
-                        <img src="{{ url_for('static', filename='elements/create-2.svg') }}" alt="text" height="80">
-                    </a>
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <!-- Message if universe has no characters -->
+        <div class="alert alert-warning text-dark" role="alert">
+            There are no characters in this world yet.
+            <a href="{{ url_for('characters.create_character') }}" class="alert-link">Create your first character</a>.
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

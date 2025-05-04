@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+
+{# Set background image for this page #}
 {% block body_style %}
     background-image: url("{{ url_for('static', filename='images/back2.png') }}");
     background-size: cover;
@@ -8,12 +10,13 @@
 
 {% block content %}
 <style>
-
+    /* Form styling */
     .form-label {
         font-weight: 600;
         color: #495057;
         margin-bottom: 0.5rem;
     }
+
     .form-control, .form-select {
         border-radius: 10px;
         padding: 12px 15px;
@@ -21,16 +24,19 @@
         transition: all 0.3s ease;
     }
 
+    /* Button hover/press effects */
     .image-button:hover {
         transform: translateY(-3px);
     }
     .image-button:active {
         transform: translateY(1px);
     }
+
     textarea.form-control {
         min-height: 120px;
         resize: vertical;
     }
+
     @media (max-width: 768px) {
         .character-form {
             padding: 1.5rem;
@@ -42,10 +48,14 @@
     <div class="row justify-content-center">
         <div class="col-lg-8 bg-dark bg-opacity-75 rounded-5 p-4">
             <div class="character-form text-center">
+
                 <img src="{{ url_for('static', filename='elements/new-char.svg') }}" alt="text" height="70">
+
+                <!-- Character creation form -->
                 <form method="POST" enctype="multipart/form-data">
                     {{ form.hidden_tag() }}
 
+                    <!-- Name and Age -->
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <div class="form-floating">
@@ -53,7 +63,6 @@
                                 {{ form.name.label(class="form-label", for="nameInput") }}
                             </div>
                         </div>
-
                         <div class="col-md-6 mb-4">
                             <div class="form-floating">
                                 {{ form.age(class="form-control", id="ageInput", placeholder=" ") }}
@@ -62,6 +71,7 @@
                         </div>
                     </div>
 
+                    <!-- Appearance -->
                     <div class="mb-4">
                         <div class="form-floating">
                             {{ form.appearance(class="form-control", id="appearanceInput", placeholder=" ", style="height: 100px") }}
@@ -69,20 +79,23 @@
                         </div>
                     </div>
 
+                    <!-- Personality -->
                     <div class="mb-4">
                         <div class="form-floating">
-                            {{ form.personality(class="form-control ", id="personalityInput", placeholder=" ", style="height: 100px") }}
+                            {{ form.personality(class="form-control", id="personalityInput", placeholder=" ", style="height: 100px") }}
                             {{ form.personality.label(class="form-label", for="personalityInput") }}
                         </div>
                     </div>
 
+                    <!-- Backstory -->
                     <div class="mb-4">
                         <div class="form-floating">
-                            {{ form.backstory(class="form-control ", id="backstoryInput", placeholder=" ", style="height: 120px") }}
+                            {{ form.backstory(class="form-control", id="backstoryInput", placeholder=" ", style="height: 120px") }}
                             {{ form.backstory.label(class="form-label", for="backstoryInput") }}
                         </div>
                     </div>
 
+                    <!-- Universe & Image Upload -->
                     <div class="row">
                         <div class="col-md-6 mb-4">
                             <div class="form-floating">
@@ -100,11 +113,13 @@
                         </div>
                     </div>
 
+                    <!-- Submit button with image -->
                     <div class="text-center">
-                      <button type="submit" class="image-button p-0 border-0 bg-transparent">
-                         <img src="{{ url_for('static', filename='elements/create-3.svg') }}" alt="Register" height="120">
-                      </button>
-                   </div>
+                        <button type="submit" class="image-button p-0 border-0 bg-transparent">
+                            <img src="{{ url_for('static', filename='elements/create-3.svg') }}" alt="Register" height="120">
+                        </button>
+                    </div>
+
                 </form>
             </div>
         </div>

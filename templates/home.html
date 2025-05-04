@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{# Page-specific background image #}
 {% block body_style %}
     background-image: url("{{ url_for('static', filename='images/back.png') }}");
     background-size: cover;
@@ -9,6 +10,7 @@
 
 {% block content %}
 <style>
+    /* Hero section layout */
     .hero-section {
         min-height: 100vh;
         padding: 4rem 2rem;
@@ -23,6 +25,7 @@
         margin: 0 auto;
     }
 
+    /* Main title and subtitle images */
     .hero-main-title {
         width: 80vw;
         max-width: 1200px;
@@ -41,6 +44,7 @@
         margin-bottom: 4rem;
     }
 
+    /* Auth buttons (register/start or continue) */
     .auth-buttons {
         margin-top: 3rem;
     }
@@ -60,6 +64,7 @@
         filter: drop-shadow(0 1px 2px rgba(0,0,0,0.2));
     }
 
+    /* Responsive tweaks */
     @media (max-width: 992px) {
         .hero-main-title {
             max-height: 300px;
@@ -97,26 +102,27 @@
 
 <div class="hero-section">
     <div class="hero-content">
-        <!-- Главный заголовок -->
+
+        <!-- Main title image -->
         <img src="{{ url_for('static', filename='elements/title.svg') }}"
              alt="The Bean Forge"
              class="hero-main-title">
 
-        <!-- Подзаголовок -->
+        <!-- Subtitle image -->
         <img src="{{ url_for('static', filename='elements/description.svg') }}"
              alt="Where Legends Are Born"
              class="hero-subtitle">
 
-        <!-- Кнопки авторизации -->
+        <!-- Auth or Continue button depending on login status -->
         <div class="auth-buttons">
             {% if not session.get('user_id') %}
                 <div class="d-grid gap-3 d-sm-flex justify-content-center">
-                    <a href="{{ url_for('auth.register') }}" >
+                    <a href="{{ url_for('auth.register') }}">
                         <img src="{{ url_for('static', filename='elements/start.svg') }}" alt="Start" height="140">
                     </a>
                 </div>
             {% else %}
-                <a href="{{ url_for('auth.dashboard') }}" >
+                <a href="{{ url_for('characters.dashboard') }}">
                     <img src="{{ url_for('static', filename='elements/continue.svg') }}" alt="Continue" height="100">
                 </a>
             {% endif %}
