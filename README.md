@@ -1,13 +1,15 @@
 # Avataria - Flask Full-Stack Web Application
 
-![Python](https://img.shields.io/badge/Python-3.x-blue) ![Flask](https://img.shields.io/badge/Flask-Web_Framework-lightgrey) ![License](https://img.shields.io/badge/License-MIT-green)
+![Python](https://img.shields.io/badge/Python-3.x-blue) ![Flask](https://img.shields.io/badge/Flask-Web_Framework-lightgrey) ![OpenAI](https://img.shields.io/badge/OpenAI-Integrated-blueviolet)  ![License](https://img.shields.io/badge/License-MIT-green)
 
 ---
 
 ## 📚 Project Description
 
-**Avataria** is a full—featured web application on Flask, designed to control characters in different universes.  
-Users can register, log in, create, edit, and delete characters, as well as upload images.
+**Avataria** is a full-featured web application built with Flask that allows users to create, manage, and explore fictional characters in multiple universes.
+
+It supports user authentication, CRUD operations for characters, image uploads, and AI-powered character generation with **OpenAI integration**.
+
 
 ---
 
@@ -21,6 +23,7 @@ Users can register, log in, create, edit, and delete characters, as well as uplo
 - Adaptive interface using Bootstrap 5
 - Implementation of architecture through Flask Blueprints
 - Fully object-oriented code
+- AI integration with OpenAI for description generation and character chat 
 
 ---
 
@@ -29,10 +32,17 @@ Users can register, log in, create, edit, and delete characters, as well as uplo
 - **Backend:** Python 3, Flask, Flask-WTF, Flask-SQLAlchemy
 - **Frontend:** HTML5, CSS3, Bootstrap 5, Jinja2 Templates
 - **Database:** SQLite
+- **AI:** OPEN-AI
 - **Version Control:** Git + GitHub
 
 ---
+## 🤖 OpenAI Integration
 
+- Generate rich character descriptions based on prompts  
+- Talk to your characters using AI-powered chat  
+- OPENAI_API_KEY=your_openai_api_key_here
+
+---
 ## 🖥️ Screenshots
 ### Home page
 ![Home Page](screenshots/home.png)
@@ -48,6 +58,12 @@ Users can register, log in, create, edit, and delete characters, as well as uplo
 
 ### Character Creation
 ![Create Character](screenshots/create_character.png)
+
+### Character Profile
+![Dashboard](screenshots/char_profile.png)
+
+### AI Chat Creator
+![Create Character](screenshots/ai_chat.png)
 
 ---
 

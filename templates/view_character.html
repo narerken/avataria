@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block body_style %}
+    background-image: url("{{ url_for('static', filename='images/back2.png') }}");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+{% endblock %}
+{% block content %}
+<div class="container py-5 text-white">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card bg-dark bg-opacity-75 p-4 rounded-4 shadow-lg text-white">
+                <div class="text-center mb-4">
+                    {% if character.image_filename %}
+                        <img src="{{ url_for('static', filename='uploads/' ~ character.image_filename) }}"
+                             alt="{{ character.name }}" class="img-fluid rounded" style="max-height: 300px;">
+                    {% else %}
+                        <i class="fas fa-user-circle fa-7x text-secondary"></i>
+                    {% endif %}
+                </div>
+
+                <h2 class="text-center fw-bold">{{ character.name }}</h2>
+
+                <hr class="bg-light">
+
+                <p><strong>Age:</strong> {{ character.age }}</p>
+                <p><strong>Universe:</strong> {{ character.universe.name }}</p>
+
+                <p><strong>Appearance:</strong><br>{{ character.appearance }}</p>
+                <p><strong>Personality:</strong><br>{{ character.personality }}</p>
+                <p><strong>Backstory:</strong><br>{{ character.backstory }}</p>
+
+                <div class="mt-4 d-flex justify-content-between">
+                    <a href="{{ url_for('characters.edit_character', char_id=character.id) }}" class="btn btn-primary">
+                        Edit
+                    </a>
+                    <form action="{{ url_for('characters.delete_character', char_id=character.id) }}" method="POST">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+                <div class="mt-3 text-center">
+                    <a href="{{ url_for('characters.dashboard') }}" class="btn btn-outline-light rounded-pill">
+                            Back to Dashboard
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

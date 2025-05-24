@@ -73,7 +73,7 @@
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ universe.name }}</h5>
-                    <p class="card-text">{{ universe.characters|length }} character(s)</p>
+                    <p class="card-text">{{ character_counts[universe.id] }} character(s)</p>
                     <a href="{{ url_for('worlds.view_world', universe_id=universe.id) }}"
                        class="btn btn-outline-light">View</a>
                 </div>

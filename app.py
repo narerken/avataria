@@ -3,10 +3,12 @@ from config import Config
 from models import db
 from datetime import timedelta
 
+
 # Import Blueprints
 from auth.routes import auth_bp
 from characters.routes import characters_bp
 from worlds.routes import worlds_bp
+from ai.routes import ai_bp
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -18,6 +20,7 @@ db.init_app(app)
 app.register_blueprint(auth_bp)
 app.register_blueprint(characters_bp)
 app.register_blueprint(worlds_bp)
+app.register_blueprint(ai_bp)
 
 # Make user session permanent and set expiration time
 @app.before_request

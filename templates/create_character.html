@@ -116,10 +116,12 @@
                     <!-- Submit button with image -->
                     <div class="text-center">
                         <button type="submit" class="image-button p-0 border-0 bg-transparent">
-                            <img src="{{ url_for('static', filename='elements/create-3.svg') }}" alt="Register" height="120">
+                            <img src="{{ url_for('static', filename='elements/create-3.svg') }}" alt="Create" height="120">
                         </button>
+                        <a href="{{ url_for('characters.dashboard') }}" class="btn btn-outline-light rounded-pill">
+                            Back to Dashboard
+                        </a>
                     </div>
-
                 </form>
             </div>
         </div>

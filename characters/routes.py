@@ -26,17 +26,24 @@ def create_character():
         return redirect(url_for('auth.login'))
 
     form = CharacterForm()
-    # Populate universe choices dynamically
+
+    # Подставим AI-данные, если есть
+    ai_data = session.pop('ai_character', None)
+    if ai_data:
+        form.name.data = ai_data.get('name')
+        form.age.data = ai_data.get('age')
+        form.appearance.data = ai_data.get('appearance')
+        form.personality.data = ai_data.get('personality')
+        form.backstory.data = ai_data.get('backstory')
+
     form.universe.choices = [(u.id, u.name) for u in Universe.query.all()]
 
     if form.validate_on_submit():
         filename = None
-        # Save uploaded image if provided
         if form.image.data:
             filename = secure_filename(form.image.data.filename)
             form.image.data.save(os.path.join(Config.UPLOAD_FOLDER, filename))
 
-        # Create and save new character
         new_character = Character(
             name=form.name.data,
             age=form.age.data,
@@ -102,3 +109,16 @@ def delete_character(char_id):
     db.session.commit()
     flash('Character deleted!', 'info')
     return redirect(url_for('characters.dashboard'))
+
+
+# View character details
+@characters_bp.route('/character/<int:char_id>')
+def view_character(char_id):
+    character = Character.query.get_or_404(char_id)
+
+    # Только владелец может просматривать персонажа (можно убрать, если доступ публичный)
+    if character.user_id != session.get('user_id'):
+        flash('Access denied.', 'danger')
+        return redirect(url_for('characters.dashboard'))
+
+    return render_template('view_character.html', character=character)

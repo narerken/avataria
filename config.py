@@ -5,8 +5,8 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     # Secret key for session and CSRF protection
-    SECRET_KEY = 'your_super_secret_key'
-
+    SECRET_KEY = 'ava_tar'
+    OPENAI_API_KEY = 'your_openAI_api_key'
     # SQLite database path
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db')
 

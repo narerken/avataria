@@ -101,16 +101,22 @@
 
 <div class="container py-5">
     <div class="d-flex justify-content-between align-items-center mb-5">
-        <img src="{{ url_for('static', filename='elements/my-char.svg') }}" alt="text" height="70">
+    <img src="{{ url_for('static', filename='elements/my-char.svg') }}" alt="text" height="70">
+    <div class="d-flex gap-3 ms-auto">
         <a href="{{ url_for('characters.create_character') }}" class="btn-create">
-            <img src="{{ url_for('static', filename='elements/create.svg') }}" alt="text" height="80">
+            <img src="{{ url_for('static', filename='elements/create.svg') }}" alt="text" height="60">
+        </a>
+        <a href="{{ url_for('ai.ai_character') }}" class="btn-create">
+            <img src="{{ url_for('static', filename='elements/create-ai.svg') }}" alt="text" height="60">
         </a>
     </div>
+</div>
 
     <div class="row">
         {% for character in characters %}
             <!-- Character card -->
             <div class="col-lg-4 col-md-6 mb-4">
+                <a href="{{ url_for('characters.view_character', char_id=character.id) }}" class="text-decoration-none text-reset">
                 <div class="card character-card h-100 bg-dark bg-opacity-50">
                     <div class="card-img-container">
                         {% if character.image_filename %}
@@ -131,21 +137,9 @@
                                 {{ character.universe.name }}
                             </span>
                         </div>
-                        <div class="d-flex">
-                            <!-- Edit button -->
-                            <a href="{{ url_for('characters.edit_character', char_id=character.id) }}"
-                               class="btn btn-primary btn-action">
-                                Edit
-                            </a>
-                            <!-- Delete form -->
-                            <form action="{{ url_for('characters.delete_character', char_id=character.id) }}" method="POST">
-                                <button type="submit" class="btn btn-danger btn-action">
-                                    Delete
-                                </button>
-                            </form>
-                        </div>
                     </div>
                 </div>
+                </a>
             </div>
         {% else %}
             <!-- No characters message -->
